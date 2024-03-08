@@ -1,0 +1,6 @@
+
+[Default Applications]
+image/png=nsxiv.desktop
+image/jpeg=nsxiv.desktop
+image/jpg=nsxiv.desktop
+application/pdf=mupdf.desktop

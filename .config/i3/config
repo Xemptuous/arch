@@ -1,0 +1,166 @@
+########################################
+#               STARTUP                #
+########################################
+exec --no-startup-id picom -b --config /root/.config/i3/picom.conf
+exec xrdb -I$HOME ~/.Xresources
+
+set $ws1 workspace number 1
+set $ws2 workspace number 2
+set $ws3 workspace number 3
+set $ws4 workspace number 4
+set $ws5 workspace number 5
+set $ws6 workspace number 6
+set $ws7 workspace number 7
+set $ws8 workspace number 8
+set $ws9 workspace number 9
+set $mod Mod4
+
+exec --no-startup-id dex --autostart --environment i3
+
+bar {
+    font pango:BitstromWera Nerd Font 9
+    # font pango:Arimo Nerd Font 10
+    # font pango:Hack Nerd Font 9
+    status_command i3blocks
+}
+
+set $refresh_i3status killall -SIGUSR1 i3status
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+# Peek.nvim don't focus markdown preview on open
+no_focus [title="^Peek preview$"]
+
+########################################
+#              KEYBINDS                #
+########################################
+# bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q s 5%+
+# bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -q s 5%-
+
+# bindsym XF86AudioRaiseVolume exec --no-startup-id amixer set Master 5%+
+# bindsym XF86AudioLowerVolume exec --no-startup-id amixer set Master 5%-
+# bindsym XF86AudioMute exec --no-startup-id amixer set Master toggle
+bindsym $mod+m exec --no-startup-id amixer set Master toggle
+
+# picom toggle for games
+bindsym $mod+c exec --no-startup-id picom-toggle
+
+set $RUN_ONE /bin/run-one
+set $TERM xterm -title "ddt"
+
+# quake-style dropdown terminal
+# bindsym $mod+grave exec --no-startup-id $RUN_ONE $TERM; [class="(?i)xterm" title="ddt"] scratchpad show, move absolute position 0 0, resize set 100ppt 30ppt
+# centered floating terminal
+bindsym $mod+grave exec --no-startup-id $RUN_ONE $TERM; [class="(?i)xterm" title="ddt"] scratchpad show, move position center
+for_window [class="(?i)xterm" title="ddt"] floating enable, resize set 50ppt 85ppt, move scratchpad
+
+bindsym $mod+Return exec xterm
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+q kill
+
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/launchers/type-1/launcher.sh
+bindsym $mod+x exec --no-startup-id ~/.config/rofi/powermenu/type-1/powermenu.sh
+# bindsym $mod+b exec --no-startup-id ~/.config/rofi/applets/bin/battery.sh
+# bindsym $mod+s exec --no-startup-id ~/.config/rofi/applets/bin/screenshot.sh
+bindsym $mod+s exec --no-startup-id maim -u -f png -s ~/Pictures/Screenshots/$(date +%s).png
+
+bindsym $mod+period exec --no-startup-id ~/.config/rofi/launchers/type-1/emoji.sh
+bindsym $mod+f fullscreen toggle
+
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exit
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# bindsym $mod+v splitv
+# bindsym $mod+s splith
+
+bindsym $mod+0 $ws0
+bindsym $mod+1 $ws1
+bindsym $mod+2 $ws2
+bindsym $mod+3 $ws3
+bindsym $mod+4 $ws4
+bindsym $mod+5 $ws5
+bindsym $mod+6 $ws6
+bindsym $mod+7 $ws7
+bindsym $mod+8 $ws8
+bindsym $mod+9 $ws9
+
+bindsym $mod+Shift+braceright move to workspace next
+bindsym $mod+Shift+braceleft move to workspace prev
+
+bindsym $mod+Shift+0 move to $ws0
+bindsym $mod+Shift+1 move to $ws1
+bindsym $mod+Shift+2 move to $ws2
+bindsym $mod+Shift+3 move to $ws3
+bindsym $mod+Shift+4 move to $ws4
+bindsym $mod+Shift+5 move to $ws5
+bindsym $mod+Shift+6 move to $ws6
+bindsym $mod+Shift+7 move to $ws7
+bindsym $mod+Shift+8 move to $ws8
+bindsym $mod+Shift+9 move to $ws9
+
+########################################
+#                 GAPS                 #
+########################################
+gaps inner 8
+gaps outer 0
+smart_gaps on
+
+
+########################################
+#               BORDERS                #
+########################################
+for_window [class="^.*"] border pixel 0
+smart_borders no_gaps
+hide_edge_borders smart
+
+
+########################################
+#                EXECS                 #
+########################################
+# exec_always --no-startup-id xautolock -locker i3lock-color -nowlocker i3lock-color
+exec_always --no-startup-id ~/.local/share/pipx/venvs/i3-workspace-names-daemon/bin/i3-workspace-names-daemon
+exec_always i3-autotiling
+exec xset r rate 200 60
+# exec inputplug -c /root/.scripts/xset
+
+exec xsetroot -solid "#1e1e2e"
+exec hsetroot -solid "#1e1e2e"
+exec feh --bg-scale /root/Pictures/Wallpapers/pattern-black.jpg
+# exec --no-startup-id nm-tray
+
+# disable bell audio notifications
+exec_always xset b off
+
+# exec xmodmap /root/.xmodmap
+exec_always xsetroot -cursor_name left_ptr
+
+# enable mouse tapping
+exec xinput set-prop 10 313 1
+
+# set mouse accel profile (sensitivity)
+exec xinput set-prop 10 333 0.39
+
+exec i3 workspace 1
+# exec xterm

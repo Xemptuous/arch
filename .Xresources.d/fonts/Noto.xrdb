@@ -1,0 +1,6 @@
+xterm*renderFont: true
+xterm*faceName: Noto
+xterm*faceSize: 10
+xterm*boldMode: false
+xterm*allowBoldFonts: true
+! xterm*fontSize: 8

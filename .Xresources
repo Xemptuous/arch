@@ -1,0 +1,26 @@
+! #include ".Xresources.d/themes/UltraDark"
+! #include ".Xresources.d/themes/Dark Pastel"
+#include "/root/.Xresources.d/themes/catppuccin-mocha.xrdb"
+#include "/root/.Xresources.d/fonts/Hack.xrdb"
+xterm*termName: xterm-256color
+xterm*cursorBlink: true
+xterm*cursorOffTime: 500
+xterm*cursorOnTime: 500
+! xterm*vt100*geometry: 106x28
+xterm*saveLines: 2000
+xterm*toolBar: false
+xterm*selectToClipboard: true
+
+xterm.VT100.translations: #override \
+    Ctrl Shift <Key>h: scroll-back(20) \n\
+    Ctrl Shift <Key>j: scroll-forw(1,line) \n\
+    Ctrl Shift <Key>k: scroll-back(1,line) \n\
+    Ctrl Shift <Key>l: scroll-forw(20) \n\
+    Ctrl Shift <Key>c: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>v: insert-selection(CLIPBOARD) \n\
+    Shift <Key>[: string("{") \n\
+    Shift <Key>]: string("}") \n\
+    Shift <Key>-: string("_") \n\
+    Shift <Key>`: string("~") \n\
+    Shift <Key>2: string("@") \n\
+    Shift <Key>6: string("^")

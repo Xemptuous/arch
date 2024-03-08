@@ -1,0 +1,185 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+# Change $SCRIPT_DIR to the location of your scripts!
+
+# echo "<span foreground='#8fbcbb' background='#2e3440' size='x-large'> </span><span background='#8fbcbb'> <span foreground='#2e3440' size='large'></span> <span foreground='#3b4252' size='small' rise='2pt'>/</span> <span size='small' rise='2pt'>$(df -h | grep "/$" | awk '{print $5}')</span>  </span><span background='#8fbcbb' foreground='#2e3440' size='x-large'></span>"
+command=/home/xempt/.config/i3blocks/$BLOCK_NAME/$BLOCK_NAME
+separator_block_width=3
+markup=pango
+
+separator=false
+# separator_block_width=7
+
+[cpu_usage]
+command= echo "<span foreground='#89b4fa' background='#000000' size='x-large'> </span><span background='#89b4fa'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>$(/home/xempt/.config/i3blocks/cpu_usage/cpu_usage)</span>  </span><span background='#89b4fa' foreground='#000000' size='x-large'></span>"
+markup=pango
+interval=3
+# LABEL=CPU
+min_width=cpucp
+# T_WARN=60
+# T_CRIT=80
+# DECIMALS=2
+# COLOR_NORMAL=#EBDBB2
+# COLOR_WARN=#FFFC00
+# COLOR_CRIT=#FF0000
+
+
+[memory]
+command= echo "<span foreground='#cba6f7' background='#000000' size='x-large'> </span><span background='#cba6f7'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>"$(/home/xempt/.config/i3blocks/memory/memory)"</span>  </span><span background='#cba6f7' foreground='#000000' size='x-large'></span>"
+# label=
+percent=false
+interval=5
+markup=pango
+
+
+[disk]
+command= echo "<span foreground='#a6e3a1' background='#000000' size='x-large'> </span><span background='#a6e3a1'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>$(df -h -P ~ | awk 'NR==2 {print $3 "/" $2}')</span>  </span><span background='#a6e3a1' foreground='#000000' size='x-large'></span>"
+markup=pango
+
+# LABEL= /
+# label=<span foreground='#88c0d0' background='#2e3440' size='x-large'> </span><span background='#88c0d0'> <span foreground='#2e3440' size='large'></span> </span>
+# background=#88c0d0
+# color=#434c5e
+# DIR=/
+#ALERT_LOW=10
+interval=300
+
+
+# NOT SHOWING SSID - FIX
+[iface]
+command= echo "<span foreground='#89dceb' background='#000000' size='x-large'> </span><span background='#89dceb'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>"$($HOME/.config/i3blocks/iface/iface)"</span>  </span><span background='#89dceb' foreground='#000000' size='x-large'></span>"
+markup=pango
+# LABEL=
+# LABEL=wlp3s0:
+# IFACE=wlp3s0
+# ADDRESS_FAMILY=inet6?
+color=#00FF00
+interval=5
+# set this to 1 to display the name of the connected WIFI interface instead of the IP address.
+display_wifi_name=1
+
+# [ssid]
+# command=echo "$(sudo iw wlp3s0 info | grep -Po '(?<=ssid ).*')"; echo \#00FF00;
+# INTERFACE=wlp3s0
+# interval=60
+
+# [spotify]
+# min_width=Buttom=?
+# color=#00FFB3
+# interval=10
+
+[volume]
+command= echo "<span foreground='#fab387' background='#000000' size='x-large'> </span><span background='#fab387'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>$($HOME/.config/i3blocks/volume/volume)</span>  </span><span background='#fab387' foreground='#000000' size='x-large'></span>"
+markup=pango
+# LABEL=
+# LABEL="<span foreground='#585b70' background='#000000' size='x-large'> </span><span background='#585b70'> <span foreground='#000000' size='x-large'></span></span>"
+# LABEL=VOL
+interval=10
+signal=10
+STEP=5%
+MIXER=default
+#MIXER=[determined automatically]
+#SCONTROL=[determined automatically]
+#NATURAL_MAPPING=0
+
+# [backlight]
+# command= echo "<span foreground='#f9e2af' background='#000000' size='x-large'> </span><span background='#f9e2af'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>$(brightnessctl i | awk 'NR == 2 {print $4}' | cut -d \( -f 2 | cut -d \) -f 1)</span>  </span><span background='#f9e2af' foreground='#000000' size='x-large'></span>"
+# markup=pango
+# interval=30
+#
+# [battery2]
+# command= echo "<span foreground='#6c7086' background='#000000' size='x-large'> </span><span background='#6c7086'> <span foreground='#000000' size='x-large'></span><span foreground='#1e1e2e' size='medium' rise='2pt'>"$($HOME/.config/i3blocks/battery2/battery2)"</span>  </span><span background='#6c7086' foreground='#000000' size='x-large'></span>"
+# markup=pango
+# interval=1
+
+# [apt-upgrades]
+# signal=1
+# interval=6400
+# PENDING_SYMBOL="\uf021 "
+# SYMBOL_ONLY=0
+# always_print=1
+# PENDING_COLOR="#00FF00"
+# NONPENDING_COLOR="#FFFFFF"
+
+
+[calendar]
+command= echo "<span foreground='#f38ba8' background='#000000' size='x-large'> </span><span background='#f38ba8'> <span foreground='#000000' size='x-large'> </span><span foreground='#1e1e2e' size='medium' rise='2pt'>$(date +"%m/%d/%Y %H:%M:%S")</span>  </span><span background='#f38ba8' foreground='#000000' size='x-large'></span>"
+markup=pango
+interval=1
+LABEL=
+DATEFMT=+%m/%d/%Y %H:%M:%S
+# SHORTFMT=+%H:%M:%S
+HEIGHT=180
+WIDTH=220
+
+[rofi-powermenu]
+command=echo "<span foreground='#81a1c1' size='large'></span> "; if [ $button ]; then $HOME/.config/rofi/powermenu/type-3/powermenu.sh; fi
+markup=pango
+interval=1
+# Generic media player support
+#
+# This displays "ARTIST - SONG" if a music is playing.
+# Supported players are: spotify, vlc, audacious, xmms2, mplayer, and others.
+# Set to %any to automatically pick (Requires playerctl >=2.1.1)
+#[mediaplayer]
+# This picks any player, with vlc as first, and spotify as last choice
+#instance=vlc,%any,spotify
+#interval=5
+#signal=10
+
+# OpenVPN support
+#
+# Support multiple VPN, with colors.
+#[openvpn]
+#interval=20
+
+# Temperature
+#
+# Support multiple chips, though lm-sensors.
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+#[temperature]
+#label=TEMP
+#interval=10
+
+# Key indicators
+#
+# Add the following bindings to i3 config file:
+#
+# bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
+# bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
+#[keyindicator]
+#KEY=CAPS
+#markup=pango
+#interval=once
+#signal=11
+
+#[keyindicator]
+#KEY=NUM
+#markup=pango
+#interval=once
+#signal=11

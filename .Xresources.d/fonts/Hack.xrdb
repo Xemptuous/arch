@@ -1,0 +1,7 @@
+xterm*renderFont: true
+xterm*faceName: Hack Nerd Font:style=Regular
+xterm*font: Hack Nerd Font:style=Regular
+xterm*faceSize: 10
+xterm*boldMode: false
+xterm*allowBoldFonts: true
+! xterm*fontSize: 8
