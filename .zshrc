@@ -1,17 +1,23 @@
 # zmodload zsh/zprof
 # skip_global_compinit=1
 
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec startx;
-fi
+[ "$(tty)" = "/dev/tty1" ] && exec sway;
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/usr/local/sbin:/sbin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin/: $HOME/.rustup/"
-# export FPATH="$zshDir/eza/completions/zsh:$FPATH"
+# PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/usr/local/sbin:/sbin:$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.local/share/nvim/mason/bin/:$HOME/.rustup/:/usr/lib/"
 
 autoload -Uz is-at-least
+
+########################################################
+#                       ANTIDOTE                      ##
+########################################################
+
+zstyle ':antidote:bundle' use-friendly-names 'yes'
+
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 
 autoload -Uz compinit
 ZSH_COMPDUMP=${ZSH_COMPDUMP:-${ZDOTDIR:-~}/.zcompdump}
@@ -29,34 +35,12 @@ fi
   fi
 } &!
 
-########################################################
-#                       ANTIDOTE                      ##
-########################################################
-
-zstyle ':antidote:bundle' use-friendly-names 'yes'
-
-source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-
 # initialize plugins statically with ${ZDOTDIR:-~}/.zsh_plugins.txt
 # antidote load ${ZDOTDIR:} ${ZDOTDIR:-~}/zplugins.txt
 antidote load ${ZDOTDIR:-~}/.zplugins.conf
 
-# antidoteDir="$HOME/.cache/antidote"
-# source "$antidoteDir/romkatv/powerlevel10k/powerlevel10k.zsh-theme"
-
-# # More performant version (requires manual resourcing changes)
-# zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins.zsh
-# [[ -f ${zsh_plugins:r}.txt ]] || touch ${zsh_plugins:r}.txt
-#
-# # Lazy-load antidote.
-# fpath+=(${ZDOTDIR:-~}/.antidote)
-# autoload -Uz $fpath[-1]/antidote
-#
-# if [[ ! $zsh_plugins -nt ${zsh_plugins:r}.txt ]]; then
-#   (antidote bundle <${zsh_plugins:r}.txt >|$zsh_plugins)
-# fi
-# source $zsh_plugins
-
+antidoteDir="$HOME/.cache/antidote"
+source "$antidoteDir/romkatv/powerlevel10k/powerlevel10k.zsh-theme"
 
 
 ########################################################
@@ -75,18 +59,16 @@ setopt +o nomatch
 # setopt interactivecomments  # recognize comments
 
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/xempt/.zshrc'
+zstyle :compinstall filename $HOME'/.zshrc'
 
 export EDITOR=nvim
 export VISUAL=nvim
 export GCM_CREDENTIAL_STORE=cache
-export DOOMWADDIR=$HOME/.config/gzdoom/WADS
-export RIPGREP_CONFIG_PATH="/home/xempt/.config/ripgrep/.ripgreprc"
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
 export MANROFFOPT="-c"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 export BAT_THEME="Catppuccin-mocha"
-export EXA_COLORS="da=38;5;240"
 export EZA_COLORS="da=38;5;240"
 export ZSH_AUTOSUGGEST_STRATEGY=(completion)
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
@@ -101,6 +83,8 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 ########################################################
 #                       ALIASES                       ##
 ########################################################
+
+# alias _='sudo '
 
 # eza aliases
 alias l="eza -1 --icons --color=always"
@@ -144,13 +128,7 @@ alias open="xdg-open"
 alias shutdown="systemctl poweroff"
 alias reboot='systemctl reboot'
 
-alias picom="picom -b --config /home/xempt/.config/i3/picom.conf"
 alias ':q'="exit"
-# alias i3lock="i3lock-color"
-# alias cl="clear"
-# alias 'cd..'='cd_up'
-# alias java8="/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java"
-# alias vm="start_vm"
 
 ########################################################
 #                      FUNCTIONS                      ##
@@ -161,19 +139,6 @@ function help() {
     "$@" --help 2>&1 | bathelp
 }
 
-# counts lines of given files (extensions or names)
-# and gives lines/file as well as total
-function countl() {
-    if [[ $# -eq 1 ]]; then
-        find . -name "*$1" | sed 's/.*/"&"/' | xargs wc -l;
-    elif [[ $# -eq 2 ]]; then
-        find . -name "*$1" -o -name "*$2" | sed 's/.*/"&"/' | xargs wc -l;
-    else
-        for ext in "$@"; do
-            find . -name "$ext" | sed 's/.*/"&"/' | xargs wc -l;
-        done
-    fi
-}
 
 # function to peek inside archives
 # and see if suitable to extract in cwd
@@ -200,11 +165,6 @@ function hideTitle() {
     fi
 }
 
-# helper to start VM with net opt
-# function start_vm() {
-#     sudo virsh net-start default;
-#     virt-manager;
-# }
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
