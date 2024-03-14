@@ -6,6 +6,7 @@ set $left h
 set $down j
 set $up k
 set $right l
+
 set $term st
 
 set $menu bemenu-run -C -i -l 10 --fixed-height --single-instance -p 'bemenu' -c -W 0.15 --fn 'HackNerdFont 10' -B 2 -R 0 \
@@ -29,9 +30,7 @@ bindsym $mod+m exec --no-startup-id amixer set Master toggle
 # # picom toggle for gamesj
 # bindsym $mod+c exec --no-startup-id picom-toggle
 
-# bindsym $mod+t exec $term
 bindsym $mod+Return exec $term
-# bindsym $mod+Return exec xterm
 
 # bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+q kill
@@ -142,7 +141,7 @@ input type:keyboard repeat_rate 90
 
 # output "*" bg /root/Pictures/5120x2880-black-solid-color-background.jpg fill
 output "*" bg /root/Pictures/Wallpapers/pattern-black.jpg fill
-output DP-3 resolution 2560x1440@170.004Hz position 2560,0 max_render_time 3 adaptive_sync on bg ~/Pictures/Wallpapers/pattern-black.jpg fill
+output DP-3 resolution 2560x1440@170.004Hz position 2560,0 max_render_time 3 adaptive_sync off bg ~/Pictures/Wallpapers/pattern-black.jpg fill
 for_window [class="st-256color"] max_render_time 1
 for_window [app_id="^firefox$"] max_render_time 1
 for_window [app_id="^org.qutebrowser.qutebrowser$"] max_render_time 1
