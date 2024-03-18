@@ -37,7 +37,8 @@ bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id $menu
 # bindsym $mod+x exec --no-startup-id ~/.config/rofi/powermenu/type-1/powermenu.sh
-bindsym $mod+s exec --no-startup-id maim -u -f png -s ~/Pictures/Screenshots/$(date +%s).png
+# bindsym $mod+s exec --no-startup-id maim -u -f png -s ~/Pictures/Screenshots/$(date +%s).png
+bindsym $mod+s exec --no-startup-id slurp | grim -g - ~/Pictures/Screenshots/$(date +%s).png
 
 # bindsym $mod+period exec --no-startup-id ~/.config/rofi/launchers/type-1/emoji.sh
 bindsym $mod+f fullscreen toggle
