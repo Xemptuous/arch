@@ -10,3 +10,5 @@ settings:
     https://discord.com: true
   content.media.audio_capture:
     https://discord.com: true
+  content.register_protocol_handler:
+    https://outlook.office365.com?mailtouri=%25s: true

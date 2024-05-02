@@ -65,15 +65,30 @@ export EDITOR=nvim
 export VISUAL=nvim
 export GCM_CREDENTIAL_STORE=cache
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/.ripgreprc"
-export MANROFFOPT="-c"
+export MANROFFOPT='-c'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export MANROFFOPT="-c"
-export BAT_THEME="Catppuccin-mocha"
-export EZA_COLORS="da=38;5;240"
+export MANROFFOPT='-c'
+export BAT_THEME='Catppuccin-mocha'
+export EZA_COLORS='da=38;5;240'
 export ZSH_AUTOSUGGEST_STRATEGY=(completion)
 export ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 export ZVM_CLIP_COPY=xclip
 export ZVM_CLIP_PASTE=xclip
+
+export GITHUB_EMAIL=''
+export GITHUB_NAME=''
+export BITBUCKET_EMAIL=''
+export BITBUCKET_NAME=''
+export SNOWSQL_PRIVATE_KEY_PASSPHRASE=
+export SNOWSQL_ACCOUNT=''
+export SNOWSQL_USER=''
+export SNOWSQL_DATABASE=''
+export SNOWSQL_SCHEMA=''
+export SNOWSQL_ROLE=''
+export SNOWSQL_WAREHOUSE=''
+export CRM_DB_USER=''
+export CRM_DB_NAME=''
+export CRM_DB_PASS=''
 
 # _evalcache dircolors
 eval "$(dircolors)"
@@ -90,6 +105,8 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 alias l="eza -1 --icons --color=always"
 alias ls="eza --icons --color=always"
 alias la='eza -a --icons --color=always'
+alias lc='eza -1 --icons=never --color=never'
+alias lac='eza -1a --icons=never --color=never'
 alias ld='eza -D --icons --color=always'
 alias ll='eza -l --icons --git --color=always --no-user --time-style long-iso'
 alias lla='eza -la --icons --git --color=always --no-user --time-style long-iso'
@@ -103,7 +120,7 @@ alias bat='bat'
 alias less='bat'
 alias cat='bat --paging never'
 alias bathelp='bat --plain --language=help'
-alias lc='lolcat'
+# alias lc='lolcat'
 
 # #fzf aliases
 # alias fd="cd \$(find . -type d -print | fzf)"
@@ -120,6 +137,7 @@ alias nv="nvim"
 alias nvi="nvim -u $HOME/.config/nvim/vi.lua"
 alias nvdb="nvim '+:DBUI'"
 alias nvsql="nvim '+:SQLua'"
+alias nvdbee="nvim '+:lua require(\"dbee\").open()'"
 alias vi="nvim --clean"
 alias nvs="nvim -u $HOME/.config/nvim/simple.lua"
 alias tard="tar_peek"

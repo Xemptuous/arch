@@ -1,4 +1,18 @@
 ########################################
+#                SWAYFX                #
+########################################
+# blur enable
+# blur_passes 4
+# blur_radius 8
+# corner_radius 5
+# shadows enable
+# shadows_on_csd enable
+# shadow_blur_radius 50
+# default_dim_inactive 0.4
+# dim_inactive_colors.unfocused #000000BB
+# layer_effects "waybar" blur enable; shadows enable; corner_radius 6
+
+########################################
 #               STARTUP                #
 ########################################
 # exec xrdb -I$HOME ~/.Xresources
@@ -7,7 +21,8 @@ set $down j
 set $up k
 set $right l
 
-set $term st
+set $term alacritty
+# set $term st
 
 set $menu bemenu-run -C -i -l 10 --fixed-height --single-instance -p 'bemenu' -c -W 0.15 --fn 'HackNerdFont 10' -B 2 -R 0 \
     --nb '#0d0d12' --fb '#0d0d12' --tb '#0d0d12' --cb '#0d0d12' --fbf '#0d0d12' --sb '#0d0d12' --ab '#0d0d12' --hb '#0d0d12' \
@@ -36,17 +51,15 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id $menu
-# bindsym $mod+x exec --no-startup-id ~/.config/rofi/powermenu/type-1/powermenu.sh
-# bindsym $mod+s exec --no-startup-id maim -u -f png -s ~/Pictures/Screenshots/$(date +%s).png
 bindsym $mod+s exec --no-startup-id slurp | grim -g - ~/Pictures/Screenshots/$(date +%s).png
+bindsym $mod+Shift+s exec --no-startup-id sd=$HOME/Pictures/Screenshots/$(date +%s).png && slurp | grim -g - $sd; wl-copy -t image/png < $sd;
 
-# bindsym $mod+period exec --no-startup-id ~/.config/rofi/launchers/type-1/emoji.sh
 bindsym $mod+f fullscreen toggle
 
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-# bindsym $mod+Shift+e exit
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+e exit
+# bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -139,10 +152,11 @@ hide_edge_borders smart
 
 input type:keyboard repeat_delay 200
 input type:keyboard repeat_rate 90
+set $wallpaper ~/Pictures/Wallpapers/pattern-black.jpg
 
-# output "*" bg /root/Pictures/5120x2880-black-solid-color-background.jpg fill
-output "*" bg /root/Pictures/Wallpapers/pattern-black.jpg fill
-output DP-3 resolution 2560x1440@170.004Hz position 2560,0 max_render_time 3 adaptive_sync off bg ~/Pictures/Wallpapers/pattern-black.jpg fill
+# output "*" bg ~/Pictures/5120x2880-black-solid-color-background.jpg fill
+output "*" bg $wallpaper fill adaptive_sync off
+output DP-3 resolution 2560x1440@170.004Hz position 2560,0 max_render_time 3
 for_window [class="st-256color"] max_render_time 1
 for_window [app_id="^firefox$"] max_render_time 1
 for_window [app_id="^org.qutebrowser.qutebrowser$"] max_render_time 1

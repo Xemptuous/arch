@@ -13,7 +13,8 @@ import catppuccin
 #   qute://help/settings.html
 
 # Change the argument to True to still load settings configured via autoconfig.yml
-config.load_autoconfig(False)
+config.load_autoconfig(True)
+
 catppuccin.setup(c, "mocha", True)
 
 # Which cookies to accept. With QtWebEngine, this setting also controls
@@ -149,4 +150,36 @@ config.set(
     "file:///home/xempt/.qutebrowser/data/userscripts/*",
 )
 
-config.set("colors.webpage.darkmode.enabled", True)
+config.bind("<Shift+Down>", "tab-move -")
+config.bind("<Shift+Up>", "tab-move +")
+config.bind("J", "tab-prev")
+config.bind("K", "tab-next")
+
+config.set(
+    "content.register_protocol_handler",
+    True,
+    "https://mail.google.com?extsrc=mailto&url=%25s",
+)
+config.set(
+    "content.register_protocol_handler",
+    True,
+    "https://outlook.office365.com?mailtouri=%25s",
+)
+
+with config.pattern("*://discord.com/") as p:
+    p.content.desktop_capture = True
+    p.content.media.audio_capture = True
+    p.content.media.audio_video_capture = True
+    p.content.media.video_capture = True
+
+with config.pattern("*://meet.google.com") as p:
+    p.content.media.audio_capture = True
+    p.content.media.audio_video_capture = True
+    p.content.media.video_capture = True
+    p.content.notifications.enabled = True
+
+with config.pattern("*://calendar.google.com?cid=%25s") as p:
+    p.content.register_protocol_handler = True
+    p.content.notifications.enabled = True
+
+c.colors.webpage.darkmode.enabled = True
